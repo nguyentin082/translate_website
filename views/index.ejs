@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Detect and Translate Text</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Detect and Translate Text</h1>
+        <form action="/translate" method="POST">
+            <div class="form-group">
+                <label for="text">Type text in any languages:</label>
+                <textarea name="text" id="text" rows="4" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="targetLanguage">Translate to:</label>
+                <select name="targetLanguage" id="targetLanguage" class="form-control">
+                    <option value="" selected disabled hidden>Choose a Language</option>
+                    <% languageNames.forEach(language => { %>
+                    <option value="<%= language %>"><%= languageMap[language] %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Detect and Translate</button>
+        </form>
+
+        <% if (typeof detectedLanguage !== 'undefined' && typeof translatedText !== 'undefined') { %>
+        <div class="mt-5">
+            <h2>Result</h2>
+            <p><strong>Detected Language:</strong> <%= languageMap[detectedLanguage] %> (Code: <%= detectedLanguage %>)
+            </p>
+            <p><strong>Original Text:</strong> <%= originalText %></p>
+            <p><strong>Translated Language:</strong> <%= languageMap[translatedLanguage] %> (Code:
+                <%= translatedLanguage %>)</p>
+            <p><strong>Translated Text:</strong> <%= translatedText %></p>
+        </div>
+        <% } %>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
